@@ -55,12 +55,12 @@ with col1:
 
 with col2:
     option_activityLevel = st.selectbox(
-        What is your activity level?',
-        ('9-15', '16-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-100'))
+        'What is the activity level of target market?',
+        ('Sedentary lifestyle', 'Slightly active', 'Moderately active', 'Active lifestyle', 'Very active lifestyle'))
     
 with col2:
     option_gender = st.selectbox(
-        What is your gender?',
+        'What is the gender of the target market?',
         ('Male', 'Female'))
 
 def get_text():
