@@ -6,8 +6,8 @@ template = """
  You are a marketing copywriter with 20 years of experience. You are analyzing customer's background to write personalized product description that only this customer will receive; 
     PRODUCT input text: {content};
     CUSTOMER age group (y): {agegroup};
-    CUSTOMER gender: {gender};
-    CUSTOMER activity level: {activitylevel};
+    CUSTOMER gender (x): {gender};
+    CUSTOMER activity level (z): {activitylevel};
     TASK: Write a product description that is tailored into this customer's activity level, age group and gender; Use age group specific slang.;
     FORMAT: Present the result in the following order: (PRODUCT DESCRIPTION), (BENEFITS), (USE CASE);
     PRODUCT DESCRIPTION: describe the product in 5 sentences;
