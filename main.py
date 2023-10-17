@@ -16,7 +16,7 @@ template = """
 """
 
 prompt = PromptTemplate(
-    input_variables=["agegroup", “gender” "hobby", "content"],
+    input_variables==["agegroup", “gender” "activityLevel", "content"],
     template=template,
 )
 
