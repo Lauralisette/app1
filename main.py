@@ -6,17 +6,16 @@ template = """
  You are a marketing copywriter with 20 years of experience. You are analyzing customer's background to write personalized product description that only this customer will receive; 
     PRODUCT input text: {content};
     CUSTOMER age group (y): {agegroup};
-    CUSTOMER gender (x): {gender};
-    CUSTOMER activity level (z): {activitylevel};
-    TASK: Write a product description that is tailored into this customer's activity level, age group and gender; Use age group specific slang.;
+    CUSTOMER activity level: {activitylevel};
+    TASK: Write a product description that is tailored into this customer's activity level and age group; Use age group specific slang.;
     FORMAT: Present the result in the following order: (PRODUCT DESCRIPTION), (BENEFITS), (USE CASE);
     PRODUCT DESCRIPTION: describe the product in 5 sentences;
-    BENEFITS: describe in 3 sentences why this product is perfect considering customers activity level, age group and gender;
-    USE CASE: write a story in 5 sentences, of an example weekend activity taking into account actitvity level {activitylevel}, gender {gender} and age {agegroup} write a story in first person, example "I started my Saturday morning with ...";
+    BENEFITS: describe in 3 sentences why this product is perfect considering customers activity level and age group;
+    USE CASE: write a story in 5 sentences, of an example weekend activity taking into account actitvity level {activitylevel} and age {agegroup} write a story in first person, example "I started my Saturday morning with ...";
 """
 
 prompt = PromptTemplate(
-    input_variables==["agegroup", "gender", "activitylevel", "content"],
+    input_variables==["agegroup", "activitylevel", "content"],
     template=template,
 )
 
@@ -32,8 +31,8 @@ st.header("Personaliseeritud turundusteksti konverter")
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("Otstarve: tootetutvustustekstide personaliseerimine igale kliendile või kliendigruppidele; väljundtekst on kohandatud kliendi a) aktiivsustasemega  b) vanusegrupi ja c) sooga;; sisendtekstiks on neutraalses vormis tootekirjeldus. \
-    \n\n Kasutusjuhend: 1) valmista ette tootekirjeldus (sisendtekst). 2) määra tarbijasegemendid lähtuvalt aktiivsustaseme, vanusegrupi ja soo kombinatsioonidest;. 3) sisesta ükshaaval tarbijasegmentide lõikes eeltoodud info äpi kasutajaliideses, saada ära. \
+    st.markdown("Otstarve: tootetutvustustekstide personaliseerimine igale kliendile või kliendigruppidele; väljundtekst on kohandatud kliendi a) aktiivsustasemega ja b) vanusegrupiga; sisendtekstiks on neutraalses vormis tootekirjeldus. \
+    \n\n Kasutusjuhend: 1) valmista ette tootekirjeldus (sisendtekst). 2) määra tarbijasegemendid lähtuvalt aktiivsustaseme ja vanusegrupi kombinatsioonidest;. 3) sisesta ükshaaval tarbijasegmentide lõikes eeltoodud info äpi kasutajaliideses, saada ära. \
     4) kopeeri ükshaaval tarbijasegmentide lõikes äpi väljundteksti kõnealuse toote tutvustuslehele.")
 
 with col2:
@@ -57,11 +56,6 @@ with col2:
     option_activitylevel = st.selectbox(
         'What is the activity level of target market?',
         ('Sedentary lifestyle', 'Slightly active', 'Moderately active', 'Active lifestyle', 'Very active lifestyle'))
-    
-with col2:
-    option_gender = st.selectbox(
-        'What is the gender of the target market?',
-        ('Male', 'Female'))
 
 def get_text():
     input_text = st.text_area(label="Content Input", label_visibility='collapsed', placeholder="Your content...", key="content_input")
@@ -88,7 +82,7 @@ if content_input:
 
     llm = load_LLM(openai_api_key=openai_api_key)
 
-    prompt_with_content = prompt.format(agegroup=option_agegroup, activitylevel= option_activitylevel, gender= option_gender, content=content_input)
+    prompt_with_content = prompt.format(agegroup=option_agegroup, activitylevel= option_activitylevel, content=content_input)
 
     formatted_content = llm(prompt_with_content)
 
